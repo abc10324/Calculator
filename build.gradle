@@ -28,8 +28,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.json/json
 	compile group: 'org.json', name: 'json', version: '20180813'
 	
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+	
     testCompile 'junit:junit:4.8.2'
-    
 }
 
 group = 'com.sam'
