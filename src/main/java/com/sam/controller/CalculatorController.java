@@ -3,15 +3,24 @@ package com.sam.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.resource.HttpResource;
 
+import com.sam.model.AuthList;
 import com.sam.model.CalculateService;
 
 @Controller
@@ -69,6 +78,27 @@ public class CalculatorController {
 			map.put("total",total);
 		else
 			map.put("error","Invalid input,please check operator's position");
+		
+		return map;
+	}
+	
+	@GetMapping("/regist")
+	public Map<String,String> getApiKey(){
+		Map<String,String> map = new HashMap<>();
+		String apiKey = UUID.randomUUID().toString().replace("-", "");
+		
+		AuthList.setAuth(apiKey);
+		map.put("API key", apiKey);
+		
+		return map;
+	}
+	
+	@RequestMapping("/unauth")
+	public Map<String,String> unauthorizedRequest(HttpServletResponse res){
+		res.setStatus(401);
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("error", "unauthorized API key");
 		
 		return map;
 	}
