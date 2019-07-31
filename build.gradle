@@ -28,6 +28,12 @@ repositories {
 
 
 dependencies {
+	// https://mvnrepository.com/artifact/aopalliance/aopalliance
+	compile group: 'aopalliance', name: 'aopalliance', version: '1.0'
+	
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.4'
+		
 	// https://mvnrepository.com/artifact/net.javacrumbs.shedlock/shedlock-spring
 	compile group: 'net.javacrumbs.shedlock', name: 'shedlock-spring', version: '2.5.0'
 

@@ -10,6 +10,7 @@ import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,6 +35,7 @@ import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 @EnableCaching
 //@EnableScheduling
 //@EnableSchedulerLock(defaultLockAtMostFor="PT30S")
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages="com.sam")
 public class SpringJavaConfig extends WebSecurityConfigurerAdapter{
 	

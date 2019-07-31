@@ -11,18 +11,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.resource.HttpResource;
 
 import com.sam.model.AuthList;
 import com.sam.model.CalculateService;
+import com.sam.model.LogExecuteTime;
+import com.sam.model.ParamCheck;
 
 @Controller
 @RestController
@@ -51,9 +50,10 @@ public class CalculatorController {
 		return map;
 	}
 	
+	@LogExecuteTime
 	@Cacheable("calcResult")
 	@PostMapping("/calc")
-	public Map<String,Object> calculate(@RequestBody String body){
+	public Map<String,Object> calculate(@ParamCheck @RequestBody String body){
 		System.out.println("In the method");
 		
 		JSONObject obj = new JSONObject(body);
@@ -85,6 +85,7 @@ public class CalculatorController {
 		return map;
 	}
 	
+	@LogExecuteTime
 	@GetMapping("/regist")
 	public Map<String,String> getApiKey(){
 		Map<String,String> map = new HashMap<>();
