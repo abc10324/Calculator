@@ -7,7 +7,7 @@
 !build.gradle
 !gradlew
 !gradlew.bat
+!gradleDeploy.bat
 !settings.gradle
 !gradle/
 !gradle/*
-!ZinioBatchOrder.png
