@@ -6,7 +6,10 @@ import java.util.Stack;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import net.javacrumbs.shedlock.core.SchedulerLock;
 
 @Service
 public class CalculateService {
@@ -208,5 +211,19 @@ public class CalculateService {
 		
 		return null;
 	}
+	
+//	@Scheduled(cron="0/5 * * * * ?")
+//	@SchedulerLock(name="Task1",lockAtLeastForString="PT2S",lockAtMostForString="PT3S")
+//	public void scheduledTask() {
+//		System.out.println(System.currentTimeMillis());
+//		System.out.println("Hello Calc");
+//	}
+//	
+//	@Scheduled(cron="0/5 * * * * ?")
+//	@SchedulerLock(name="Task1",lockAtLeastForString="PT2S",lockAtMostForString="PT3S")
+//	public void scheduledTask2() {
+//		System.out.println(System.currentTimeMillis());
+//		System.out.println("Hello Calc2");
+//	}
 	
 }

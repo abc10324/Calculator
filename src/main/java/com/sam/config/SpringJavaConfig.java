@@ -1,13 +1,16 @@
 package com.sam.config;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import javax.servlet.ServletContext;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,12 +20,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.mongodb.MongoClient;
 import com.sam.model.AuthList;
+
+import net.javacrumbs.shedlock.core.LockProvider;
+import net.javacrumbs.shedlock.provider.mongo.MongoLockProvider;
+import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 
 
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
+@EnableCaching
+//@EnableScheduling
+//@EnableSchedulerLock(defaultLockAtMostFor="PT30S")
 @ComponentScan(basePackages="com.sam")
 public class SpringJavaConfig extends WebSecurityConfigurerAdapter{
 	
@@ -56,6 +67,17 @@ public class SpringJavaConfig extends WebSecurityConfigurerAdapter{
 	    .and()
 	    .authorizeRequests()
 	    .antMatchers("/calc").authenticated();
+		
+		// set this resource need to be access by https
+		http.requiresChannel().antMatchers("/calc").requiresSecure();
 	}
+	
+	@Bean
+    public CacheManager cacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Arrays.asList(
+          new ConcurrentMapCache("calcResult")));
+        return cacheManager;
+    }
 	
 }
