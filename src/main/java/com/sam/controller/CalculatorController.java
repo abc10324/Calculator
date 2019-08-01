@@ -1,5 +1,6 @@
 package com.sam.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sam.model.AuthList;
 import com.sam.model.CalculateService;
+import com.sam.model.JsonParam;
 import com.sam.model.LogExecuteTime;
 import com.sam.model.ParamCheck;
 
@@ -93,6 +96,27 @@ public class CalculatorController {
 		
 		AuthList.setAuth(apiKey);
 		map.put("API key", apiKey);
+		
+		return map;
+	}
+	
+	@PostMapping("/triPlus")
+	public Map<String,Object> triplePlus(@JsonParam Double number1
+									 ,@RequestParam Integer number2
+									 	,@JsonParam ArrayList<Object> list){
+		System.out.println("number1 = " + number1);
+		System.out.println("number2 = " + number2);
+		System.out.println("list = " + list);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		if(number1 != null && number2 != null && list != null) {
+			map.put("result1", number1);
+			map.put("result2", number2);
+			map.put("result3", list);
+		}
+		else
+			map.put("error", "invalid input");
 		
 		return map;
 	}

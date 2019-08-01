@@ -35,7 +35,7 @@ import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 @EnableCaching
 //@EnableScheduling
 //@EnableSchedulerLock(defaultLockAtMostFor="PT30S")
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages="com.sam")
 public class SpringJavaConfig extends WebSecurityConfigurerAdapter{
 	
